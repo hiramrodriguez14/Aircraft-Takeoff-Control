@@ -3,6 +3,9 @@
 #include <fcntl.h>
 #include <signal.h>
 #include "functions.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 // Defining Global Variables
 int planes = 0;
