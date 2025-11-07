@@ -22,7 +22,7 @@ int main() {
   pid_t child;
   child = fork();
   if (child == 0) {
-    execlp("./radio", "radio", SHM_NAME, NULL);
+    execlp("./../../radio/build/radio", "./radio", SHM_NAME, NULL);
     perror("execlp failed");
     exit(1);
   } else if (child > 0) {

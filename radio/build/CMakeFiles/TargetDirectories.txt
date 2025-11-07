@@ -1,0 +1,3 @@
+/Users/hiramraul11gmail.com/Aircraft-Takeoff-Control/radio/build/CMakeFiles/radio.dir
+/Users/hiramraul11gmail.com/Aircraft-Takeoff-Control/radio/build/CMakeFiles/edit_cache.dir
+/Users/hiramraul11gmail.com/Aircraft-Takeoff-Control/radio/build/CMakeFiles/rebuild_cache.dir

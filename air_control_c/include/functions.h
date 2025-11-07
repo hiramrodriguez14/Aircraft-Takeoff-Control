@@ -3,7 +3,7 @@
 #include <pthread.h>
 
 // Global Macros
-#define SHM_NAME "/air_control_shm" //Shared memory name
+#define SHM_NAME "/control_shm" //Shared memory name
 #define TOTAL_TAKEOFFS 50      //Total takeoffs to be managed
 
 //  Global Variables

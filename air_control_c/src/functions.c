@@ -27,6 +27,10 @@ void MemoryCreate() {
   
   // Create shared memory segment and set its size to hold 3 integers
   int fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666);
+  if (fd == -1) {
+    perror("shm_open failed");
+    exit(1);
+  }
   ftruncate(fd, 3 * sizeof(int));
   shm_ptr = mmap(0, 3 * sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 

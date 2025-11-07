@@ -1,24 +1,38 @@
-
-#define PLANES_LIMIT 20
-int planes = 0;
-int takeoffs = 0;
-int traffic = 0;
-
-void Traffic(int signum) {
-  // TODO:
-  // Calculate the number of waiting planes.
-  // Check if there are 10 or more waiting planes to send a signal and increment
-  // planes. Ensure signals are sent and planes are incremented only if the
-  // total number of planes has not been exceeded.
-}
+#include "./../include/functions.h"
+#include <sys/fcntl.h>
+#include <sys/mman.h>
+#include <signal.h>
+#include <Kernel/sys/time.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char* argv[]) {
   // TODO:
   // 1. Open the shared memory block and store this process PID in position 2
   //    of the memory block.
+  MemoryCreate();
+  shm_ptr[2] = getpid(); // Store ground_control PID in position 2
+
   // 3. Configure SIGTERM and SIGUSR1 handlers
   //    - The SIGTERM handler should: close the shared memory, print
   //      "finalization of operations..." and terminate the program.
   //    - The SIGUSR1 handler should: increase the number of takeoffs by 5.
+
+  struct sigaction sa1, sa2;
+  sa1.sa_handler = SSR_SIGTERM;
+  sa2.sa_handler = SSR_SIGUSR1;
+  sigaction(SIGTERM, &sa1, NULL);
+  sigaction(SIGUSR1, &sa2, NULL);
   // 2. Configure the timer to execute the Traffic function.
+  struct sigaction sa3;
+  sa3.sa_handler = Traffic;
+  sigaction(SIGALRM, &sa3, NULL);
+  setitimer(ITIMER_REAL, &timer, NULL); //500ms interval timer
+
+ while(takeoffs < 100){
+    pause(); // Wait for signals
+  }
+
+  return 0;
 }
