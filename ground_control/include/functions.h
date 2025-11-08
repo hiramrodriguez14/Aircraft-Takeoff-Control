@@ -3,7 +3,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <sys/time.h>
-
+#include <stdbool.h>
 // Global Macros
 #define PLANES_LIMIT 20
 #define SHM_NAME "/control_shm" //Shared memory name
@@ -20,4 +20,5 @@ extern int *shm_ptr;
 
 /* timer is defined and initialized in a .c file to avoid executable statements in a header */
 extern struct itimerval timer;
+extern bool running;
 #endif //  INCLUDE_FUNCTIONS_H_

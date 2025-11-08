@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
   sigaction(SIGALRM, &sa3, NULL);
   setitimer(ITIMER_REAL, &timer, NULL); //500ms interval timer
 
- while(takeoffs < 100){
+ while(running){
     pause(); // Wait for signals
   }
 

@@ -11,6 +11,7 @@
 int planes = 0;
 int takeoffs = 0;
 int* shm_ptr = NULL;  // For ground_control shared memory access
+bool running = true;
 struct itimerval timer = {
   .it_value = { .tv_sec = 0, .tv_usec = 500000 }, // 500ms initial delay
   .it_interval = { .tv_sec = 0, .tv_usec = 500000 } // 500ms interval
@@ -18,8 +19,11 @@ struct itimerval timer = {
 void Traffic(int signum) {
   // TODO:
   // Calculate the number of waiting planes.
-  int waiting_planes = planes - takeoffs;
-  if(waiting_planes >= 10){
+  planes = planes - takeoffs;
+  takeoffs = 0;
+  printf("Waiting planes: %d\n", planes);
+  printf("Planes: %d, Takeoffs: %d\n", planes, takeoffs);
+  if(planes >= 10){
     printf("RUNWAY OVERLOADED\n");
   }
   if(planes < PLANES_LIMIT){
@@ -32,10 +36,11 @@ void Traffic(int signum) {
 }
 void SSR_SIGTERM(int signal) {
   // Close the shared memory
-  shm_unlink(SHM_NAME);
   printf("finalization of operations...\n");
-  exit(0);
+  shm_unlink(SHM_NAME);
+  running = false;
 }
+
 void SSR_SIGUSR1(int signal) {
   // Increase the number of takeoffs by 5.
   takeoffs += 5;
