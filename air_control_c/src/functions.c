@@ -26,6 +26,7 @@ void MemoryCreate() {
   // the process in the first position of the memory block.
   
   // Create shared memory segment and set its size to hold 3 integers
+  shm_unlink(SHM_NAME); // Ensure previous shm is removed
   int fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666);
   if (fd == -1) {
     perror("shm_open failed");

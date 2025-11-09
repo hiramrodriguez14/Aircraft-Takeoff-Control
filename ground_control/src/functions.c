@@ -20,12 +20,14 @@ void Traffic(int signum) {
   // TODO:
   // Calculate the number of waiting planes.
   int waiting_planes = planes - takeoffs;
-  printf("Planes: %d\n", planes);
+  usleep(10000); // Sleep for 100ms to simulate processing time
+  
   if(waiting_planes >= 10){
     printf("RUNWAY OVERLOADED, waiting planes in line... %d\n", waiting_planes);
   }
   if(planes < PLANES_LIMIT){
     planes+=5;
+    printf("Planes: %d\n", planes);
     kill(shm_ptr[1], SIGUSR2);
   }
   // Check if there are 10 or more waiting planes to send a signal and increment
