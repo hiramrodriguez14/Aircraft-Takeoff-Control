@@ -19,12 +19,10 @@ struct itimerval timer = {
 void Traffic(int signum) {
   // TODO:
   // Calculate the number of waiting planes.
-  planes = planes - takeoffs;
-  takeoffs = 0;
-  printf("Waiting planes: %d\n", planes);
-  printf("Planes: %d, Takeoffs: %d\n", planes, takeoffs);
-  if(planes >= 10){
-    printf("RUNWAY OVERLOADED\n");
+  int waiting_planes = planes - takeoffs;
+  printf("Planes: %d\n", planes);
+  if(waiting_planes >= 10){
+    printf("RUNWAY OVERLOADED, waiting planes in line... %d\n", waiting_planes);
   }
   if(planes < PLANES_LIMIT){
     planes+=5;
@@ -51,13 +49,13 @@ void MemoryCreate() {
   // the process in the first position of the memory block.
 
   // Create shared memory segment and set its size to hold 3 integers
-  int fd = shm_open(SHM_NAME,O_RDWR, 0777);
+  int fd = shm_open(SHM_NAME,O_RDWR, 0666);
   ftruncate(fd, 3 * sizeof(int));
   shm_ptr = mmap(0, 3 * sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
   // Check for mmap failure
   if (shm_ptr == MAP_FAILED) {
-    perror("mmap failed");
+    perror("Ground control mmap failed");
     exit(1);
   }
 

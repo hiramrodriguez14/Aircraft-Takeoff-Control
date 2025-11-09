@@ -4,7 +4,7 @@
 
 // Global Macros
 #define SHM_NAME "/control_shm" //Shared memory name
-#define TOTAL_TAKEOFFS 50      //Total takeoffs to be managed
+#define TOTAL_TAKEOFFS 20      //Total takeoffs to be managed
 
 //  Global Variables
 extern int planes;

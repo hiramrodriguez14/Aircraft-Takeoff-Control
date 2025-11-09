@@ -36,7 +36,7 @@ void MemoryCreate() {
 
   // Check for mmap failure
   if (shm_ptr == MAP_FAILED) {
-    perror("mmap failed");
+    perror("Air control mmap failed");
     exit(1);
   }
 
@@ -58,7 +58,7 @@ void* TakeOffsFunction() {
   //    Send SIGTERM when the total takeoffs target is reached
 
   while (total_takeoffs < TOTAL_TAKEOFFS) {
-    printf("Total takeoffs: %d\n", total_takeoffs);
+    //printf("Total takeoffs: %d\n", total_takeoffs);
     int result = pthread_mutex_trylock(&runway1_lock);
     int result2 = pthread_mutex_trylock(&runway2_lock);
 
