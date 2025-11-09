@@ -2,12 +2,13 @@
 
 #include <sys/fcntl.h>
 #include <sys/mman.h>
-#include <sys/time.h>
+#include <time.h>
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+int fd = 0;
 int planes = 0;
 int takeoffs = 0;
 int* shm_ptr = NULL;  // For ground_control shared memory access
@@ -20,14 +21,16 @@ void Traffic(int signum) {
   // TODO:
   // Calculate the number of waiting planes.
   int waiting_planes = planes - takeoffs;
-  usleep(10000); // Sleep for 100ms to simulate processing time
+  usleep(1000); // Sleep for 100ms to simulate processing time
   
   if(waiting_planes >= 10){
     printf("RUNWAY OVERLOADED, waiting planes in line... %d\n", waiting_planes);
+    //printf("RUNWAY OVERLOADED!!!! \n");
+    printf("Planes: %d\n", waiting_planes);
   }
   if(planes < PLANES_LIMIT){
     planes+=5;
-    printf("Planes: %d\n", planes);
+    //printf("Planes: %d\n", planes);
     kill(shm_ptr[1], SIGUSR2);
   }
   // Check if there are 10 or more waiting planes to send a signal and increment
@@ -37,7 +40,9 @@ void Traffic(int signum) {
 void SSR_SIGTERM(int signal) {
   // Close the shared memory
   printf("finalization of operations...\n");
+  // munmap(shm_ptr, 3 * sizeof(int));
   shm_unlink(SHM_NAME);
+  close(fd);
   running = false;
 }
 
@@ -51,7 +56,7 @@ void MemoryCreate() {
   // the process in the first position of the memory block.
 
   // Create shared memory segment and set its size to hold 3 integers
-  int fd = shm_open(SHM_NAME,O_RDWR, 0666);
+  fd = shm_open(SHM_NAME,O_RDWR, 0666);
   ftruncate(fd, 3 * sizeof(int));
   shm_ptr = mmap(0, 3 * sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 

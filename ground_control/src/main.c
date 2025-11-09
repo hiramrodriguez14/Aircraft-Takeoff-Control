@@ -2,7 +2,7 @@
 #include <sys/fcntl.h>
 #include <sys/mman.h>
 #include <signal.h>
-#include <Kernel/sys/time.h>
+#include <time.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,6 +33,6 @@ int main(int argc, char* argv[]) {
  while(running){
     pause(); // Wait for signals
   }
-
+  
   return 0;
 }

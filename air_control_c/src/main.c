@@ -22,11 +22,12 @@ int main() {
   pid_t child;
   child = fork();
   if (child == 0) {
-    execlp("./../radio/build/radio", "./radio", SHM_NAME, NULL);
+    shm_ptr[1] = getpid();
+    execlp("./radio", "./radio", SHM_NAME, NULL);
     perror("execlp failed");
     exit(1);
   } else if (child > 0) {
-    shm_ptr[1] = child;
+    //shm_ptr[1] = child;
   } else {
     perror("fork failed");
     exit(1);
@@ -54,5 +55,8 @@ int main() {
   wait(NULL);
   munmap(shm_ptr, 3 * sizeof(int));
   shm_unlink(SHM_NAME);
+  pthread_mutex_destroy(&state_lock);
+  pthread_mutex_destroy(&runway1_lock);
+  pthread_mutex_destroy(&runway2_lock);
   return 0;
 }

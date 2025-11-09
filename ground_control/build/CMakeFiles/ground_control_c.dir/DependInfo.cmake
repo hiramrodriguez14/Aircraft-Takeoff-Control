@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/hiramraul11gmail.com/Aircraft-Takeoff-Control/ground_control/src/functions.c" "CMakeFiles/ground_control_c.dir/src/functions.c.o" "gcc" "CMakeFiles/ground_control_c.dir/src/functions.c.o.d"
-  "/Users/hiramraul11gmail.com/Aircraft-Takeoff-Control/ground_control/src/main.c" "CMakeFiles/ground_control_c.dir/src/main.c.o" "gcc" "CMakeFiles/ground_control_c.dir/src/main.c.o.d"
+  "/OS Coding Lab/Programming Project/Aircraft-Takeoff-Control/ground_control/src/functions.c" "CMakeFiles/ground_control_c.dir/src/functions.c.o" "gcc" "CMakeFiles/ground_control_c.dir/src/functions.c.o.d"
+  "/OS Coding Lab/Programming Project/Aircraft-Takeoff-Control/ground_control/src/main.c" "CMakeFiles/ground_control_c.dir/src/main.c.o" "gcc" "CMakeFiles/ground_control_c.dir/src/main.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -1,1 +1,1 @@
-/usr/bin/cc -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/ground_control_c.dir/src/main.c.o CMakeFiles/ground_control_c.dir/src/functions.c.o -o ground_control_c  -lm
+/usr/bin/cc CMakeFiles/ground_control_c.dir/src/main.c.o CMakeFiles/ground_control_c.dir/src/functions.c.o -o ground_control_c  -lm 
