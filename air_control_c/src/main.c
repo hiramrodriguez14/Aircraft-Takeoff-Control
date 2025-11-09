@@ -1,23 +1,24 @@
 #include <fcntl.h>
+#include <pthread.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
-#include <unistd.h>
-#include <signal.h>
-#include <pthread.h>
 #include <sys/wait.h>
+#include <unistd.h>
+
 #include "functions.h"
 
 int main() {
-  // TODO 1: Call the function that creates the shared memory segment.
+  // Call the function that creates the shared memory segment.
   MemoryCreate();
-  // TODO 3: Configure the SIGUSR2 signal to increment the planes on the runway
+  // Configure the SIGUSR2 signal to increment the planes on the runway
   // by 5.
   struct sigaction sa;
   sa.sa_handler = SigHandler2;
   sigaction(SIGUSR2, &sa, NULL);
-  // TODO 4: Launch the 'radio' executable and, once launched, store its PID in
+  // Launch the 'radio' executable and, once launched, store its PID in
   // the second position of the shared memory block.
   pid_t child;
   child = fork();
@@ -27,12 +28,12 @@ int main() {
     perror("execlp failed");
     exit(1);
   } else if (child > 0) {
-    //shm_ptr[1] = child;
+    // shm_ptr[1] = child;
   } else {
     perror("fork failed");
     exit(1);
   }
-  // TODO 6: Launch 5 threads which will be the controllers; each thread will
+  // Launch 5 threads which will be the controllers; each thread will
   // execute the TakeOffsFunction().
   pthread_t thread1, thread2, thread3, thread4, thread5;
 
