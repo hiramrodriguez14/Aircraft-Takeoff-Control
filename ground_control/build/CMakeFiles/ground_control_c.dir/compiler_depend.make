@@ -141,6 +141,7 @@ CMakeFiles/ground_control_c.dir/src/functions.c.o: /Users/hiramraul11gmail.com/A
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdbool.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h \
   /Users/hiramraul11gmail.com/Aircraft-Takeoff-Control/ground_control/include/functions.h
 
@@ -285,6 +286,7 @@ CMakeFiles/ground_control_c.dir/src/main.c.o: /Users/hiramraul11gmail.com/Aircra
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdbool.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h \
   /Users/hiramraul11gmail.com/Aircraft-Takeoff-Control/ground_control/include/functions.h
 
@@ -292,6 +294,8 @@ CMakeFiles/ground_control_c.dir/src/main.c.o: /Users/hiramraul11gmail.com/Aircra
 /Users/hiramraul11gmail.com/Aircraft-Takeoff-Control/ground_control/src/main.c:
 
 /Users/hiramraul11gmail.com/Aircraft-Takeoff-Control/ground_control/include/functions.h:
+
+/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdbool.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h:
 

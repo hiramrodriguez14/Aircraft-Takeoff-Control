@@ -132,8 +132,21 @@ run_airport_tests() {
     esac
     TOTAL_TESTS=$((TOTAL_TESTS + 1))
 
-    # Test 2: If requests 3, should buy 3
-    echo -e "${YELLOW}2. Mutex validation${NC}"
+    # Test 2: Validate sold out...
+    echo -e "${YELLOW}2. Shared memory create${NC}"
+    if grep -q '/dev/shm/' "/proc/$AIR_PID/maps"; then
+        echo "   ✅ PASSED - Correct report results"
+        PASSED_TESTS=$((PASSED_TESTS + 1))
+        SHM_EXISTS=0;
+    else
+        echo "   ❌ FAILED - Shared memmory not found"
+        echo "   $LAST_LINES"
+        SHM_EXISTS=1;
+    fi
+    TOTAL_TESTS=$((TOTAL_TESTS + 1))
+
+    # Test 3: If requests 3, should buy 3
+    echo -e "${YELLOW}3. Mutex validation${NC}"
     if nm air_c | grep -q "pthread_mutex_lock"; then
         echo "   ✅ PASSED - buyer create mutex"
         PASSED_TESTS=$((PASSED_TESTS + 1))
@@ -146,9 +159,9 @@ run_airport_tests() {
     wait $AIR_PID 2>/dev/null
     wait $GROUND_PID 2>/dev/null
 
-    # Test 3: Validate sold out...
+    # Test 4: Validate sold out...
     LAST_LINES=$(tail -7 ./logs/air_control_c.log)
-    echo -e "${YELLOW}3. Validate report result${NC}"
+    echo -e "${YELLOW}4. Validate report result${NC}"
     # printf '   <<%q>>\n' "$LAST_LINES"
     if echo "$LAST_LINES" | grep -A4 ":::: End of operations ::::" | grep -q "Takeoffs: 20 Planes: 20"; then
         echo "   ✅ PASSED - Correct report results"
@@ -159,25 +172,20 @@ run_airport_tests() {
     fi
     TOTAL_TESTS=$((TOTAL_TESTS + 1))
 
-    # Test 4: Verify shared memory was released
-    echo -e "${YELLOW}4. Shared memory released${NC}"
-    if ipcs -m | grep -q "0x00000010"; then
-        echo "   ❌ FAILED - Shared memory segment still present"
-    else
+    # Test 5: Verify shared memory was released
+    echo -e "${YELLOW}5. Shared memory released${NC}"
+    if [ "${SHM_EXISTS:-1}" -eq 0 ] && ! ipcs -m | grep -q '0x00000010'; then
         echo "   ✅ PASSED - Shared memory segment released"
         PASSED_TESTS=$((PASSED_TESTS + 1))
+    else
+        echo "   ❌ FAILED - Shared memory segment still present (or never existed)"
+        echo "   $LAST_LINES"
     fi
     TOTAL_TESTS=$((TOTAL_TESTS + 1))
 
     wait $AIR_PID
     wait $GROUND_PID
 
-    echo "Checking shared memory..."
-    if ipcs -m | grep -q "0x00000010"; then
-        echo "   ❌ Shared memory still present"
-    else
-        echo "   ✅ Shared memory released"
-    fi
 }
 
 
